@@ -28,7 +28,7 @@ import * as path from "path-browserify";
 
 const {Option} = Select;
 
-export const ServerUrl = "";
+export const ServerUrl = "http://39.106.146.61:8000";
 
 // export const StaticBaseUrl = "https://cdn.jsdelivr.net/gh/casbin/static";
 export const StaticBaseUrl = "https://cdn.casbin.org";
