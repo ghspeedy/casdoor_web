@@ -24,7 +24,7 @@ const container = document.getElementById("root");
 
 const app = createRoot(container);
 
-app.render(<BrowserRouter>
+app.render(<BrowserRouter basename={import.meta.env.BASE_URL}>
   <App />
 </BrowserRouter>);
 

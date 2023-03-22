@@ -13,8 +13,8 @@
 // limitations under the License.
 
 import React from "react";
-import {Redirect, Route, Switch} from "react-router-dom";
-import {Spin} from "antd";
+import { Redirect, Route, Switch, withRouter } from "react-router-dom";
+import { Spin } from "antd";
 import i18next from "i18next";
 import * as Setting from "./Setting";
 import * as Conf from "./Conf";
@@ -68,8 +68,8 @@ class EntryPage extends React.Component {
     };
 
     return (
-      <div className="loginBackground" style={{backgroundImage: Setting.inIframe() || Setting.isMobile() ? null : `url(${this.state.application?.formBackgroundUrl})`}}>
-        <Spin spinning={this.state.application === undefined} tip={i18next.t("login:Loading")} style={{margin: "0 auto"}} />
+      <div className="loginBackground" style={{ backgroundImage: Setting.inIframe() || Setting.isMobile() ? null : `url(${this.state.application?.formBackgroundUrl})` }}>
+        <Spin spinning={this.state.application === undefined} tip={i18next.t("login:Loading")} style={{ margin: "0 auto" }} />
         <Switch>
           <Route exact path="/signup" render={(props) => this.renderHomeIfLoggedIn(<SignupPage {...this.props} application={this.state.application} onUpdateApplication={onUpdateApplication} {...props} />)} />
           <Route exact path="/signup/:applicationName" render={(props) => this.renderHomeIfLoggedIn(<SignupPage {...this.props} application={this.state.application} onUpdateApplication={onUpdateApplication} {...props} />)} />
@@ -84,11 +84,11 @@ class EntryPage extends React.Component {
           <Route exact path="/prompt" render={(props) => this.renderLoginIfNotLoggedIn(<PromptPage {...this.props} application={this.state.application} onUpdateApplication={onUpdateApplication} {...props} />)} />
           <Route exact path="/prompt/:applicationName" render={(props) => this.renderLoginIfNotLoggedIn(<PromptPage {...this.props} application={this.state.application} onUpdateApplication={onUpdateApplication} {...props} />)} />
           <Route exact path="/cas/:owner/:casApplicationName/logout" render={(props) => this.renderHomeIfLoggedIn(<CasLogout {...this.props} application={this.state.application} onUpdateApplication={onUpdateApplication} {...props} />)} />
-          <Route exact path="/cas/:owner/:casApplicationName/login" render={(props) => {return (<LoginPage {...this.props} application={this.state.application} type={"cas"} mode={"signup"} onUpdateApplication={onUpdateApplication} {...props} />);}} />
+          <Route exact path="/cas/:owner/:casApplicationName/login" render={(props) => { return (<LoginPage {...this.props} application={this.state.application} type={"cas"} mode={"signup"} onUpdateApplication={onUpdateApplication} {...props} />); }} />
         </Switch>
       </div>
     );
   }
 }
 
-export default EntryPage;
+export default withRouter(EntryPage);

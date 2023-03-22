@@ -25,6 +25,7 @@ import * as Auth from "./auth/Auth";
 import { withTranslation } from "react-i18next";
 import * as AuthBackend from "./auth/AuthBackend";
 import { Link, Redirect, Route, Switch, withRouter } from "react-router-dom";
+import EntryPage from "./EntryPage";
 //const OrganizationListPage=lazy(() => import("./OrganizationListPage")) 
 const OrganizationListPage = lazy(() => import("./OrganizationListPage"))
 const OrganizationEditPage = lazy(() => import("./OrganizationEditPage"))
@@ -59,7 +60,6 @@ const PaymentResultPage = lazy(() => import("./PaymentResultPage"))
 const AccountPage = lazy(() => import("./account/AccountPage"))
 const HomePage = lazy(() => import("./basic/HomePage"))
 const CustomGithubCorner = lazy(() => import("./CustomGithubCorner"))
-const EntryPage = lazy(() => import("./EntryPage"))
 const ResultPage = lazy(() => import("./auth/ResultPage"))
 const AuthCallback = lazy(() => import("./auth/AuthCallback"))
 const SelectLanguageBox = lazy(() => import("./SelectLanguageBox"))
@@ -368,91 +368,91 @@ class App extends Component {
 
   getMenuItems() {
     const res = [];
-
+  
     if (this.state.account === null || this.state.account === undefined) {
       return [];
     }
 
-    res.push(Setting.getItem(<Link to="/">{i18next.t("general:Home")}</Link>, "/"));
-
+    res.push(Setting.getItem(<Link to={`/`}>{i18next.t("general:Home")}</Link>, "/"));
+    console.log(import.meta.env.BASE_URL)
     if (Setting.isAdminUser(this.state.account)) {
-      res.push(Setting.getItem(<Link to="/organizations">{i18next.t("general:Organizations")}</Link>,
+      res.push(Setting.getItem(<Link to={`/organizations`}>{i18next.t("general:Organizations")}</Link>,
         "/organizations"));
     }
 
     if (Setting.isLocalAdminUser(this.state.account)) {
-      res.push(Setting.getItem(<Link to="/users">{i18next.t("general:Users")}</Link>,
+      res.push(Setting.getItem(<Link to={`/users`}>{i18next.t("general:Users")}</Link>,
         "/users"
       ));
 
-      res.push(Setting.getItem(<Link to="/roles">{i18next.t("general:Roles")}</Link>,
+      res.push(Setting.getItem(<Link to={`/roles`}>{i18next.t("general:Roles")}</Link>,
         "/roles"
       ));
 
-      res.push(Setting.getItem(<Link to="/permissions">{i18next.t("general:Permissions")}</Link>,
+      res.push(Setting.getItem(<Link to={`/permissions`}>{i18next.t("general:Permissions")}</Link>,
         "/permissions"
       ));
     }
 
     if (Setting.isAdminUser(this.state.account)) {
-      res.push(Setting.getItem(<Link to="/models">{i18next.t("general:Models")}</Link>,
+      res.push(Setting.getItem(<Link to={`/models`}>{i18next.t("general:Models")}</Link>,
         "/models"
       ));
 
-      res.push(Setting.getItem(<Link to="/adapters">{i18next.t("general:Adapters")}</Link>,
+      res.push(Setting.getItem(<Link to={`/adapters`}>{i18next.t("general:Adapters")}</Link>,
         "/adapters"
       ));
     }
 
     if (Setting.isLocalAdminUser(this.state.account)) {
-      res.push(Setting.getItem(<Link to="/applications">{i18next.t("general:Applications")}</Link>,
+      res.push(Setting.getItem(<Link to={`/applications`}>{i18next.t("general:Applications")}</Link>,
         "/applications"
       ));
 
-      res.push(Setting.getItem(<Link to="/providers">{i18next.t("general:Providers")}</Link>,
+      res.push(Setting.getItem(<Link to={`/providers`}>{i18next.t("general:Providers")}</Link>,
         "/providers"
       ));
 
-      res.push(Setting.getItem(<Link to="/resources">{i18next.t("general:Resources")}</Link>,
+      res.push(Setting.getItem(<Link to={`/resources`}>{i18next.t("general:Resources")}</Link>,
         "/resources"
       ));
 
-      res.push(Setting.getItem(<Link to="/records">{i18next.t("general:Records")}</Link>,
+      res.push(Setting.getItem(<Link to={`/records`}>{i18next.t("general:Records")}</Link>,
         "/records"
       ));
     }
 
     if (Setting.isAdminUser(this.state.account)) {
-      res.push(Setting.getItem(<Link to="/tokens">{i18next.t("general:Tokens")}</Link>,
+      res.push(Setting.getItem(<Link to={`/tokens`}>{i18next.t("general:Tokens")}</Link>,
         "/tokens"
       ));
 
-      res.push(Setting.getItem(<Link to="/sessions">{i18next.t("general:Sessions")}</Link>,
+      res.push(Setting.getItem(<Link to={`/sessions`}>{i18next.t("general:Sessions")}</Link>,
         "/sessions"
       ));
 
-      res.push(Setting.getItem(<Link to="/webhooks">{i18next.t("general:Webhooks")}</Link>,
+      res.push(Setting.getItem(<Link to={`/webhooks`}>{i18next.t("general:Webhooks")}</Link>,
         "/webhooks"
       ));
 
-      res.push(Setting.getItem(<Link to="/syncers">{i18next.t("general:Syncers")}</Link>,
+      res.push(Setting.getItem(<Link to={`/syncers`}>{i18next.t("general:Syncers")}</Link>,
         "/syncers"
       ));
 
-      res.push(Setting.getItem(<Link to="/certs">{i18next.t("general:Certs")}</Link>,
+      res.push(Setting.getItem(<Link to={`/certs`}>{i18next.t("general:Certs")}</Link>,
         "/certs"
       ));
 
       if (Conf.EnableExtraPages) {
-        res.push(Setting.getItem(<Link to="/products">{i18next.t("general:Products")}</Link>,
+        res.push(Setting.getItem(<Link to={`/products`}>{i18next.t("general:Products")}</Link>,
           "/products"
         ));
 
-        res.push(Setting.getItem(<Link to="/payments">{i18next.t("general:Payments")}</Link>,
+        res.push(Setting.getItem(<Link to={`/payments`}>{i18next.t("general:Payments")}</Link>,
           "/payments"
         ));
 
-        res.push(Setting.getItem(<Link to="/sysinfo">{i18next.t("general:System Info")}</Link>,
+        res.push(Setting.getItem(<Link to={`/sysinfo`}>{i18next.t("general:System Info")}</Link>,
           "/sysinfo"
         ));
       }
@@ -467,7 +467,7 @@ class App extends Component {
 
   renderHomeIfLoggedIn(component) {
     if (this.state.account !== null && this.state.account !== undefined) {
-      return <Redirect to="/" />;
+      return <Redirect to={`/login`}/>;
     } else {
       return <Suspense fallback={<div>Loading...</div>}>
         {component}
@@ -478,18 +478,20 @@ class App extends Component {
   renderLoginIfNotLoggedIn(component) {
     if (this.state.account === null) {
       sessionStorage.setItem("from", window.location.pathname);
-      return <Redirect to="/login" />;
+      return <Redirect to={`/login`}/>;
     } else if (this.state.account === undefined) {
       return null;
     } else {
-      return component;
+      return <Suspense fallback={<div>Loading...</div>}>
+      {component}
+    </Suspense>;
     }
   }
 
   isStartPages() {
-    return window.location.pathname.startsWith("/login") ||
-      window.location.pathname.startsWith("/signup") ||
-      window.location.pathname === "/";
+    return window.location.pathname.startsWith(`${import.meta.env.BASE_URL}/login`) ||
+      window.location.pathname.startsWith(`${import.meta.env.BASE_URL}/login`) ||
+      window.location.pathname === `${import.meta.env.BASE_URL}/`;
   }
 
   renderRouter() {
@@ -630,16 +632,17 @@ class App extends Component {
   }
 
   isDoorPages() {
-    return this.isEntryPages() || window.location.pathname.startsWith("/callback");
+    return this.isEntryPages() || window.location.pathname.startsWith(`${import.meta.env.BASE_URL}/callback`);
   }
 
   isEntryPages() {
-    return window.location.pathname.startsWith("/signup") ||
-      window.location.pathname.startsWith("/login") ||
-      window.location.pathname.startsWith("/forget") ||
-      window.location.pathname.startsWith("/prompt") ||
-      window.location.pathname.startsWith("/cas") ||
-      window.location.pathname.startsWith("/auto-signup");
+    console.log(`${import.meta.env.BASE_URL}/login`,window.location.pathname)
+    return window.location.pathname.startsWith(`${import.meta.env.BASE_URL}/signup`) ||
+      window.location.pathname.startsWith(`${import.meta.env.BASE_URL}/login`) ||
+      window.location.pathname.startsWith(`${import.meta.env.BASE_URL}/forget`) ||
+      window.location.pathname.startsWith(`${import.meta.env.BASE_URL}/prompt`) ||
+      window.location.pathname.startsWith(`${import.meta.env.BASE_URL}/cas`) ||
+      window.location.pathname.startsWith(`${import.meta.env.BASE_URL}/auto`);
   }
 
   renderPage() {
