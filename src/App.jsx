@@ -12,68 +12,68 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import React, {Component} from "react";
+import React, { Component, lazy, Suspense } from "react";
 import "./App.less";
-import {Helmet} from "react-helmet";
+import { Helmet } from "react-helmet";
 import * as Setting from "./Setting";
-import {StyleProvider, legacyLogicalPropertiesTransformer} from "@ant-design/cssinjs";
-import {BarsOutlined, DownOutlined, InfoCircleFilled, LogoutOutlined, SettingOutlined} from "@ant-design/icons";
-import {Alert, Avatar, Button, Card, ConfigProvider, Drawer, Dropdown, FloatButton, Layout, Menu, Result} from "antd";
-import {Link, Redirect, Route, Switch, withRouter} from "react-router-dom";
-import OrganizationListPage from "./OrganizationListPage";
-import OrganizationEditPage from "./OrganizationEditPage";
-import UserListPage from "./UserListPage";
-import UserEditPage from "./UserEditPage";
-import RoleListPage from "./RoleListPage";
-import RoleEditPage from "./RoleEditPage";
-import PermissionListPage from "./PermissionListPage";
-import PermissionEditPage from "./PermissionEditPage";
-import ProviderListPage from "./ProviderListPage";
-import ProviderEditPage from "./ProviderEditPage";
-import ApplicationListPage from "./ApplicationListPage";
-import ApplicationEditPage from "./ApplicationEditPage";
-import ResourceListPage from "./ResourceListPage";
-import LdapEditPage from "./LdapEditPage";
-import LdapSyncPage from "./LdapSyncPage";
-import TokenListPage from "./TokenListPage";
-import TokenEditPage from "./TokenEditPage";
-import RecordListPage from "./RecordListPage";
-import WebhookListPage from "./WebhookListPage";
-import WebhookEditPage from "./WebhookEditPage";
-import SyncerListPage from "./SyncerListPage";
-import SyncerEditPage from "./SyncerEditPage";
-import CertListPage from "./CertListPage";
-import CertEditPage from "./CertEditPage";
-import ProductListPage from "./ProductListPage";
-import ProductEditPage from "./ProductEditPage";
-import ProductBuyPage from "./ProductBuyPage";
-import PaymentListPage from "./PaymentListPage";
-import PaymentEditPage from "./PaymentEditPage";
-import PaymentResultPage from "./PaymentResultPage";
-import AccountPage from "./account/AccountPage";
-import HomePage from "./basic/HomePage";
-import CustomGithubCorner from "./CustomGithubCorner";
-import * as Conf from "./Conf";
-
-import * as Auth from "./auth/Auth";
-import EntryPage from "./EntryPage";
-import ResultPage from "./auth/ResultPage";
-import * as AuthBackend from "./auth/AuthBackend";
-import AuthCallback from "./auth/AuthCallback";
-import SelectLanguageBox from "./SelectLanguageBox";
+import { StyleProvider, legacyLogicalPropertiesTransformer } from "@ant-design/cssinjs";
+import { BarsOutlined, DownOutlined, InfoCircleFilled, LogoutOutlined, SettingOutlined } from "@ant-design/icons";
+import { Alert, Avatar, Button, Card, ConfigProvider, Drawer, Dropdown, FloatButton, Layout, Menu, Result } from "antd";
 import i18next from "i18next";
-import OdicDiscoveryPage from "./auth/OidcDiscoveryPage";
-import SamlCallback from "./auth/SamlCallback";
-import ModelListPage from "./ModelListPage";
-import ModelEditPage from "./ModelEditPage";
-import SystemInfo from "./SystemInfo";
-import AdapterListPage from "./AdapterListPage";
-import AdapterEditPage from "./AdapterEditPage";
-import {withTranslation} from "react-i18next";
-import SelectThemeBox from "./SelectThemeBox";
-import SessionListPage from "./SessionListPage";
+import * as Conf from "./Conf";
+import * as Auth from "./auth/Auth";
+import { withTranslation } from "react-i18next";
+import * as AuthBackend from "./auth/AuthBackend";
+import { Link, Redirect, Route, Switch, withRouter } from "react-router-dom";
+import EntryPage from "./EntryPage";
+//const OrganizationListPage=lazy(() => import("./OrganizationListPage")) 
+const OrganizationListPage = lazy(() => import("./OrganizationListPage"))
+const OrganizationEditPage = lazy(() => import("./OrganizationEditPage"))
+const UserListPage = lazy(() => import("./UserListPage"))
+const UserEditPage = lazy(() => import("./UserEditPage"))
+const RoleListPage = lazy(() => import("./RoleListPage"))
+const RoleEditPage = lazy(() => import("./RoleEditPage"))
+const PermissionListPage = lazy(() => import("./PermissionListPage"))
+const PermissionEditPage = lazy(() => import("./PermissionEditPage"))
+const ProviderListPage = lazy(() => import("./ProviderListPage"))
+const ProviderEditPage = lazy(() => import("./ProviderEditPage"))
+const ApplicationListPage = lazy(() => import("./ApplicationListPage"))
+const ApplicationEditPage = lazy(() => import("./ApplicationEditPage"))
+const ResourceListPage = lazy(() => import("./ResourceListPage"))
+const LdapEditPage = lazy(() => import("./LdapEditPage"))
+const LdapSyncPage = lazy(() => import("./LdapSyncPage"))
+const TokenListPage = lazy(() => import("./TokenListPage"))
+const TokenEditPage = lazy(() => import("./TokenEditPage"))
+const RecordListPage = lazy(() => import("./RecordListPage"))
+const WebhookListPage = lazy(() => import("./WebhookListPage"))
+const WebhookEditPage = lazy(() => import("./WebhookEditPage"))
+const SyncerListPage = lazy(() => import("./SyncerListPage"))
+const SyncerEditPage = lazy(() => import("./SyncerEditPage"))
+const CertListPage = lazy(() => import("./CertListPage"))
+const CertEditPage = lazy(() => import("./CertEditPage"))
+const ProductListPage = lazy(() => import("./ProductListPage"))
+const ProductEditPage = lazy(() => import("./ProductEditPage"))
+const ProductBuyPage = lazy(() => import("./ProductBuyPage"))
+const PaymentListPage = lazy(() => import("./PaymentListPage"))
+const PaymentEditPage = lazy(() => import("./PaymentEditPage"))
+const PaymentResultPage = lazy(() => import("./PaymentResultPage"))
+const AccountPage = lazy(() => import("./account/AccountPage"))
+const HomePage = lazy(() => import("./basic/HomePage"))
+const CustomGithubCorner = lazy(() => import("./CustomGithubCorner"))
+const ResultPage = lazy(() => import("./auth/ResultPage"))
+const AuthCallback = lazy(() => import("./auth/AuthCallback"))
+const SelectLanguageBox = lazy(() => import("./SelectLanguageBox"))
+const OdicDiscoveryPage = lazy(() => import("./auth/OidcDiscoveryPage"))
+const SamlCallback = lazy(() => import("./auth/SamlCallback"))
+const ModelListPage = lazy(() => import("./ModelListPage"))
+const ModelEditPage = lazy(() => import("./ModelEditPage"))
+const SystemInfo = lazy(() => import("./SystemInfo"))
+const AdapterListPage = lazy(() => import("./AdapterListPage"))
+const AdapterEditPage = lazy(() => import("./AdapterEditPage"))
+const SelectThemeBox = lazy(() => import("./SelectThemeBox"))
+const SessionListPage = lazy(() => import("./SessionListPage"))
 
-const {Header, Footer, Content} = Layout;
+const { Header, Footer, Content } = Layout;
 
 class App extends Component {
   constructor(props) {
@@ -116,49 +116,49 @@ class App extends Component {
       uri: uri,
     });
     if (uri === "/") {
-      this.setState({selectedMenuKey: "/"});
+      this.setState({ selectedMenuKey: "/" });
     } else if (uri.includes("/organizations")) {
-      this.setState({selectedMenuKey: "/organizations"});
+      this.setState({ selectedMenuKey: "/organizations" });
     } else if (uri.includes("/users")) {
-      this.setState({selectedMenuKey: "/users"});
+      this.setState({ selectedMenuKey: "/users" });
     } else if (uri.includes("/roles")) {
-      this.setState({selectedMenuKey: "/roles"});
+      this.setState({ selectedMenuKey: "/roles" });
     } else if (uri.includes("/permissions")) {
-      this.setState({selectedMenuKey: "/permissions"});
+      this.setState({ selectedMenuKey: "/permissions" });
     } else if (uri.includes("/models")) {
-      this.setState({selectedMenuKey: "/models"});
+      this.setState({ selectedMenuKey: "/models" });
     } else if (uri.includes("/adapters")) {
-      this.setState({selectedMenuKey: "/adapters"});
+      this.setState({ selectedMenuKey: "/adapters" });
     } else if (uri.includes("/providers")) {
-      this.setState({selectedMenuKey: "/providers"});
+      this.setState({ selectedMenuKey: "/providers" });
     } else if (uri.includes("/applications")) {
-      this.setState({selectedMenuKey: "/applications"});
+      this.setState({ selectedMenuKey: "/applications" });
     } else if (uri.includes("/resources")) {
-      this.setState({selectedMenuKey: "/resources"});
+      this.setState({ selectedMenuKey: "/resources" });
     } else if (uri.includes("/tokens")) {
-      this.setState({selectedMenuKey: "/tokens"});
+      this.setState({ selectedMenuKey: "/tokens" });
     } else if (uri.includes("/records")) {
-      this.setState({selectedMenuKey: "/records"});
+      this.setState({ selectedMenuKey: "/records" });
     } else if (uri.includes("/webhooks")) {
-      this.setState({selectedMenuKey: "/webhooks"});
+      this.setState({ selectedMenuKey: "/webhooks" });
     } else if (uri.includes("/syncers")) {
-      this.setState({selectedMenuKey: "/syncers"});
+      this.setState({ selectedMenuKey: "/syncers" });
     } else if (uri.includes("/certs")) {
-      this.setState({selectedMenuKey: "/certs"});
+      this.setState({ selectedMenuKey: "/certs" });
     } else if (uri.includes("/products")) {
-      this.setState({selectedMenuKey: "/products"});
+      this.setState({ selectedMenuKey: "/products" });
     } else if (uri.includes("/payments")) {
-      this.setState({selectedMenuKey: "/payments"});
+      this.setState({ selectedMenuKey: "/payments" });
     } else if (uri.includes("/signup")) {
-      this.setState({selectedMenuKey: "/signup"});
+      this.setState({ selectedMenuKey: "/signup" });
     } else if (uri.includes("/login")) {
-      this.setState({selectedMenuKey: "/login"});
+      this.setState({ selectedMenuKey: "/login" });
     } else if (uri.includes("/result")) {
-      this.setState({selectedMenuKey: "/result"});
+      this.setState({ selectedMenuKey: "/result" });
     } else if (uri.includes("/sysinfo")) {
-      this.setState({selectedMenuKey: "/sysinfo"});
+      this.setState({ selectedMenuKey: "/sysinfo" });
     } else {
-      this.setState({selectedMenuKey: -1});
+      this.setState({ selectedMenuKey: -1 });
     }
   }
 
@@ -297,13 +297,13 @@ class App extends Component {
   renderAvatar() {
     if (this.state.account.avatar === "") {
       return (
-        <Avatar style={{backgroundColor: Setting.getAvatarColor(this.state.account.name), verticalAlign: "middle"}} size="large">
+        <Avatar style={{ backgroundColor: Setting.getAvatarColor(this.state.account.name), verticalAlign: "middle" }} size="large">
           {Setting.getShortName(this.state.account.name)}
         </Avatar>
       );
     } else {
       return (
-        <Avatar src={this.state.account.avatar} style={{verticalAlign: "middle"}} size="large">
+        <Avatar src={this.state.account.avatar} style={{ verticalAlign: "middle" }} size="large">
           {Setting.getShortName(this.state.account.name)}
         </Avatar>
       );
@@ -327,7 +327,7 @@ class App extends Component {
     };
 
     return (
-      <Dropdown key="/rightDropDown" menu={{items, onClick}} >
+      <Dropdown key="/rightDropDown" menu={{ items, onClick }} >
         <div className="rightDropDown">
           {
             this.renderAvatar()
@@ -368,97 +368,97 @@ class App extends Component {
 
   getMenuItems() {
     const res = [];
-
+  
     if (this.state.account === null || this.state.account === undefined) {
       return [];
     }
 
-    res.push(Setting.getItem(<Link to="/">{i18next.t("general:Home")}</Link>, "/"));
-
+    res.push(Setting.getItem(<Link to={`/`}>{i18next.t("general:Home")}</Link>, "/"));
+    console.log(import.meta.env.BASE_URL)
     if (Setting.isAdminUser(this.state.account)) {
-      res.push(Setting.getItem(<Link to="/organizations">{i18next.t("general:Organizations")}</Link>,
+      res.push(Setting.getItem(<Link to={`/organizations`}>{i18next.t("general:Organizations")}</Link>,
         "/organizations"));
     }
 
     if (Setting.isLocalAdminUser(this.state.account)) {
-      res.push(Setting.getItem(<Link to="/users">{i18next.t("general:Users")}</Link>,
+      res.push(Setting.getItem(<Link to={`/users`}>{i18next.t("general:Users")}</Link>,
         "/users"
       ));
 
-      res.push(Setting.getItem(<Link to="/roles">{i18next.t("general:Roles")}</Link>,
+      res.push(Setting.getItem(<Link to={`/roles`}>{i18next.t("general:Roles")}</Link>,
         "/roles"
       ));
 
-      res.push(Setting.getItem(<Link to="/permissions">{i18next.t("general:Permissions")}</Link>,
+      res.push(Setting.getItem(<Link to={`/permissions`}>{i18next.t("general:Permissions")}</Link>,
         "/permissions"
       ));
     }
 
     if (Setting.isAdminUser(this.state.account)) {
-      res.push(Setting.getItem(<Link to="/models">{i18next.t("general:Models")}</Link>,
+      res.push(Setting.getItem(<Link to={`/models`}>{i18next.t("general:Models")}</Link>,
         "/models"
       ));
 
-      res.push(Setting.getItem(<Link to="/adapters">{i18next.t("general:Adapters")}</Link>,
+      res.push(Setting.getItem(<Link to={`/adapters`}>{i18next.t("general:Adapters")}</Link>,
         "/adapters"
       ));
     }
 
     if (Setting.isLocalAdminUser(this.state.account)) {
-      res.push(Setting.getItem(<Link to="/applications">{i18next.t("general:Applications")}</Link>,
+      res.push(Setting.getItem(<Link to={`/applications`}>{i18next.t("general:Applications")}</Link>,
         "/applications"
       ));
 
-      res.push(Setting.getItem(<Link to="/providers">{i18next.t("general:Providers")}</Link>,
+      res.push(Setting.getItem(<Link to={`/providers`}>{i18next.t("general:Providers")}</Link>,
         "/providers"
       ));
 
-      res.push(Setting.getItem(<Link to="/resources">{i18next.t("general:Resources")}</Link>,
+      res.push(Setting.getItem(<Link to={`/resources`}>{i18next.t("general:Resources")}</Link>,
         "/resources"
       ));
 
-      res.push(Setting.getItem(<Link to="/records">{i18next.t("general:Records")}</Link>,
+      res.push(Setting.getItem(<Link to={`/records`}>{i18next.t("general:Records")}</Link>,
         "/records"
       ));
     }
 
     if (Setting.isAdminUser(this.state.account)) {
-      res.push(Setting.getItem(<Link to="/tokens">{i18next.t("general:Tokens")}</Link>,
+      res.push(Setting.getItem(<Link to={`/tokens`}>{i18next.t("general:Tokens")}</Link>,
         "/tokens"
       ));
 
-      res.push(Setting.getItem(<Link to="/sessions">{i18next.t("general:Sessions")}</Link>,
+      res.push(Setting.getItem(<Link to={`/sessions`}>{i18next.t("general:Sessions")}</Link>,
         "/sessions"
       ));
 
-      res.push(Setting.getItem(<Link to="/webhooks">{i18next.t("general:Webhooks")}</Link>,
+      res.push(Setting.getItem(<Link to={`/webhooks`}>{i18next.t("general:Webhooks")}</Link>,
         "/webhooks"
       ));
 
-      res.push(Setting.getItem(<Link to="/syncers">{i18next.t("general:Syncers")}</Link>,
+      res.push(Setting.getItem(<Link to={`/syncers`}>{i18next.t("general:Syncers")}</Link>,
         "/syncers"
       ));
 
-      res.push(Setting.getItem(<Link to="/certs">{i18next.t("general:Certs")}</Link>,
+      res.push(Setting.getItem(<Link to={`/certs`}>{i18next.t("general:Certs")}</Link>,
         "/certs"
       ));
 
       if (Conf.EnableExtraPages) {
-        res.push(Setting.getItem(<Link to="/products">{i18next.t("general:Products")}</Link>,
+        res.push(Setting.getItem(<Link to={`/products`}>{i18next.t("general:Products")}</Link>,
           "/products"
         ));
 
-        res.push(Setting.getItem(<Link to="/payments">{i18next.t("general:Payments")}</Link>,
+        res.push(Setting.getItem(<Link to={`/payments`}>{i18next.t("general:Payments")}</Link>,
           "/payments"
         ));
 
-        res.push(Setting.getItem(<Link to="/sysinfo">{i18next.t("general:System Info")}</Link>,
+        res.push(Setting.getItem(<Link to={`/sysinfo`}>{i18next.t("general:System Info")}</Link>,
           "/sysinfo"
         ));
       }
       res.push(Setting.getItem(<a target="_blank" rel="noreferrer"
         href={Setting.isLocalhost() ? `${Setting.ServerUrl}/swagger` : "/swagger"}>{i18next.t("general:Swagger")}</a>,
-      "/swagger"
+        "/swagger"
       ));
     }
 
@@ -467,27 +467,31 @@ class App extends Component {
 
   renderHomeIfLoggedIn(component) {
     if (this.state.account !== null && this.state.account !== undefined) {
-      return <Redirect to="/" />;
+      return <Redirect to={`/login`}/>;
     } else {
-      return component;
+      return <Suspense fallback={<div>Loading...</div>}>
+        {component}
+      </Suspense>;
     }
   }
 
   renderLoginIfNotLoggedIn(component) {
     if (this.state.account === null) {
       sessionStorage.setItem("from", window.location.pathname);
-      return <Redirect to="/login" />;
+      return <Redirect to={`/login`}/>;
     } else if (this.state.account === undefined) {
       return null;
     } else {
-      return component;
+      return <Suspense fallback={<div>Loading...</div>}>
+      {component}
+    </Suspense>;
     }
   }
 
   isStartPages() {
-    return window.location.pathname.startsWith("/login") ||
-        window.location.pathname.startsWith("/signup") ||
-        window.location.pathname === "/";
+    return window.location.pathname.startsWith(`${import.meta.env.BASE_URL}/login`) ||
+      window.location.pathname.startsWith(`${import.meta.env.BASE_URL}/login`) ||
+      window.location.pathname === `${import.meta.env.BASE_URL}/`;
   }
 
   renderRouter() {
@@ -555,7 +559,7 @@ class App extends Component {
   };
 
   renderContent() {
-    const onClick = ({key}) => {
+    const onClick = ({ key }) => {
       if (key === "/swagger") {
         window.open(Setting.isLocalhost() ? `${Setting.ServerUrl}/swagger` : "/swagger", "_blank");
       } else {
@@ -565,10 +569,10 @@ class App extends Component {
     return (
       <Layout id="parent-area">
         {/* https://github.com/ant-design/ant-design/issues/40394 ant design bug. If it will be fixed, we can delete the code for control the color of Header*/}
-        <Header style={{padding: "0", marginBottom: "3px", backgroundColor: this.state.themeAlgorithm.includes("dark") ? "black" : "white"}}>
+        <Header style={{ padding: "0", marginBottom: "3px", backgroundColor: this.state.themeAlgorithm.includes("dark") ? "black" : "white" }}>
           {Setting.isMobile() ? null : (
             <Link to={"/"}>
-              <div className="logo" style={{background: `url(${this.state.logo})`}} />
+              <div className="logo" style={{ background: `url(${this.state.logo})` }} />
             </Link>
           )}
           {Setting.isMobile() ?
@@ -578,7 +582,7 @@ class App extends Component {
                   items={this.getMenuItems()}
                   mode={"inline"}
                   selectedKeys={[this.state.selectedMenuKey]}
-                  style={{lineHeight: "64px"}}
+                  style={{ lineHeight: "64px" }}
                   onClick={this.onClose}
                 >
                 </Menu>
@@ -592,14 +596,14 @@ class App extends Component {
               items={this.getMenuItems()}
               mode={"horizontal"}
               selectedKeys={[this.state.selectedMenuKey]}
-              style={{position: "absolute", left: "145px", right: "260px"}}
+              style={{ position: "absolute", left: "145px", right: "260px" }}
             />
           }
           {
             this.renderAccountMenu()
           }
         </Header>
-        <Content style={{display: "flex", flexDirection: "column"}} >
+        <Content style={{ display: "flex", flexDirection: "column" }} >
           {Setting.isMobile() ?
             this.renderRouter() :
             <Card className="content-warp-card">
@@ -615,36 +619,37 @@ class App extends Component {
   renderFooter() {
     return (
       <React.Fragment>
-        {!this.state.account ? null : <div style={{display: "none"}} id="CasdoorApplicationName" value={this.state.account.signupApplication} />}
+        {!this.state.account ? null : <div style={{ display: "none" }} id="CasdoorApplicationName" value={this.state.account.signupApplication} />}
         <Footer id="footer" style={
           {
             textAlign: "center",
           }
         }>
-            Powered by <a target="_blank" href="https://casdoor.org" rel="noreferrer"><img style={{paddingBottom: "3px"}} height={"20px"} alt={"Casdoor"} src={this.state.logo} /></a>
+          Powered by <a target="_blank" href="https://casdoor.org" rel="noreferrer"><img style={{ paddingBottom: "3px" }} height={"20px"} alt={"Casdoor"} src={this.state.logo} /></a>
         </Footer>
       </React.Fragment>
     );
   }
 
   isDoorPages() {
-    return this.isEntryPages() || window.location.pathname.startsWith("/callback");
+    return this.isEntryPages() || window.location.pathname.startsWith(`${import.meta.env.BASE_URL}/callback`);
   }
 
   isEntryPages() {
-    return window.location.pathname.startsWith("/signup") ||
-        window.location.pathname.startsWith("/login") ||
-        window.location.pathname.startsWith("/forget") ||
-        window.location.pathname.startsWith("/prompt") ||
-        window.location.pathname.startsWith("/cas") ||
-        window.location.pathname.startsWith("/auto-signup");
+    console.log(`${import.meta.env.BASE_URL}/login`,window.location.pathname)
+    return window.location.pathname.startsWith(`${import.meta.env.BASE_URL}/signup`) ||
+      window.location.pathname.startsWith(`${import.meta.env.BASE_URL}/login`) ||
+      window.location.pathname.startsWith(`${import.meta.env.BASE_URL}/forget`) ||
+      window.location.pathname.startsWith(`${import.meta.env.BASE_URL}/prompt`) ||
+      window.location.pathname.startsWith(`${import.meta.env.BASE_URL}/cas`) ||
+      window.location.pathname.startsWith(`${import.meta.env.BASE_URL}/auto`);
   }
 
   renderPage() {
     if (this.isDoorPages()) {
       return (
         <Layout id="parent-area">
-          <Content style={{display: "flex", justifyContent: "center"}}>
+          <Content style={{ display: "flex", justifyContent: "center" }}>
             {
               this.isEntryPages() ?
                 <EntryPage
@@ -696,8 +701,8 @@ class App extends Component {
 
     return (
       <Alert type="info" banner showIcon={false} closable message={
-        <div style={{textAlign: "center"}}>
-          <InfoCircleFilled style={{color: "rgb(87,52,211)"}} />
+        <div style={{ textAlign: "center" }}>
+          <InfoCircleFilled style={{ color: "rgb(87,52,211)" }} />
           &nbsp;&nbsp;
           {i18next.t("general:Found some texts still not translated? Please help us translate at")}
           &nbsp;

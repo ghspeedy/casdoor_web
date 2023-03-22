@@ -262,8 +262,8 @@ class UserListPage extends BaseListPage {
         width: "140px",
         sorter: true,
         ...this.getColumnSearchProps("region"),
-        render: (text, record, index) => {
-          return Setting.initCountries().getName(record.region, Setting.getLanguage(), {select: "official"});
+        render: async(text, record, index) => {
+          return await Setting.initCountries().getName(record.region, Setting.getLanguage(), {select: "official"});
         },
       },
       {
