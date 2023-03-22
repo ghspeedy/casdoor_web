@@ -1,0 +1,1 @@
+import{j as n,i as t,B as i}from"./index-ba7d0766.js";import{P as r}from"./index-2f07707f.js";const l=e=>n.jsx(r,{title:e.title,onConfirm:e.onConfirm,disabled:e.disabled,okText:t.t("general:OK"),cancelText:t.t("general:Cancel"),children:n.jsx(i,{style:{marginBottom:"10px"},disabled:e.disabled,type:"primary",danger:!0,children:t.t("general:Delete")})});export{l as P};
