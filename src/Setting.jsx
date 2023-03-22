@@ -28,7 +28,7 @@ import * as path from "path-browserify";
 
 const {Option} = Select;
 
-export const ServerUrl = "http://39.106.146.61:8000";
+export const ServerUrl = import.meta.env.DEV? " ": "http://39.106.146.61:8000";
 
 // export const StaticBaseUrl = "https://cdn.jsdelivr.net/gh/casbin/static";
 export const StaticBaseUrl = "https://cdn.casbin.org";
@@ -207,9 +207,9 @@ export const OtherProviderInfo = {
   },
 };
 
-export function initCountries() {
-  const countries = import("i18n-iso-countries");
-  countries.registerLocale(import("i18n-iso-countries/langs/" + getLanguage() + ".json"));
+export async function  initCountries() {
+  const countries =await import("i18n-iso-countries");
+  countries.registerLocale(await import("i18n-iso-countries/langs/" + getLanguage() + ".json"));
   return countries;
 }
 
@@ -220,10 +220,10 @@ export function getCountryCode(country) {
   return "";
 }
 
-export function getCountryCodeData(countryCodes = phoneNumber.getCountries()) {
-  return countryCodes?.map((countryCode) => {
+export async function getCountryCodeData(countryCodes = phoneNumber.getCountries()) {
+  return countryCodes?.map(async(countryCode) => {
     if (phoneNumber.isSupportedCountry(countryCode)) {
-      const name = initCountries().getName(countryCode, getLanguage());
+      const name = await initCountries().getName(countryCode, getLanguage());
       return {
         code: countryCode,
         name: name || "",
