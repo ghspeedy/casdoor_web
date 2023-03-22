@@ -35,10 +35,10 @@ import {Controlled as CodeMirror} from "react-codemirror2";
 import "codemirror/lib/codemirror.css";
 import ThemeEditor from "./common/theme/ThemeEditor";
 
-require("codemirror/theme/material-darker.css");
-require("codemirror/mode/htmlmixed/htmlmixed");
-require("codemirror/mode/xml/xml");
-require("codemirror/mode/css/css");
+import "codemirror/theme/material-darker.css";
+import "codemirror/mode/htmlmixed/htmlmixed";
+import "codemirror/mode/xml/xml";
+import "codemirror/mode/css/css";
 
 const {Option} = Select;
 

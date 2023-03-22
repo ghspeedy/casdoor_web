@@ -11,10 +11,6 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
-import "core-js/es";
-import "react-app-polyfill/ie9";
-import "react-app-polyfill/stable";
 import React from "react";
 import {createRoot} from "react-dom/client";
 import "./index.css";

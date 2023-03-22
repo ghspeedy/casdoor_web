@@ -22,8 +22,8 @@ import i18next from "i18next";
 import "codemirror/lib/codemirror.css";
 import * as ModelBackend from "./backend/ModelBackend";
 import PolicyTable from "./common/PoliciyTable";
-require("codemirror/theme/material-darker.css");
-require("codemirror/mode/javascript/javascript");
+import "codemirror/theme/material-darker.css";
+import "codemirror/mode/javascript/javascript";
 
 const {Option} = Select;
 

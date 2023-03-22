@@ -18,7 +18,7 @@ import * as UserBackend from "./backend/UserBackend";
 import * as OrganizationBackend from "./backend/OrganizationBackend";
 import * as Setting from "./Setting";
 import i18next from "i18next";
-import CropperDiv from "./CropperDiv.js";
+import CropperDiv from "./CropperDiv";
 import * as ApplicationBackend from "./backend/ApplicationBackend";
 import PasswordModal from "./PasswordModal";
 import ResetModal from "./ResetModal";

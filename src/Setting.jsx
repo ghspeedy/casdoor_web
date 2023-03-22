@@ -208,8 +208,8 @@ export const OtherProviderInfo = {
 };
 
 export function initCountries() {
-  const countries = require("i18n-iso-countries");
-  countries.registerLocale(require("i18n-iso-countries/langs/" + getLanguage() + ".json"));
+  const countries = import("i18n-iso-countries");
+  countries.registerLocale(import("i18n-iso-countries/langs/" + getLanguage() + ".json"));
   return countries;
 }
 

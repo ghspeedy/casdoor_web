@@ -23,8 +23,8 @@ import WebhookHeaderTable from "./WebhookHeaderTable";
 
 import {Controlled as CodeMirror} from "react-codemirror2";
 import "codemirror/lib/codemirror.css";
-require("codemirror/theme/material-darker.css");
-require("codemirror/mode/javascript/javascript");
+import "codemirror/theme/material-darker.css";
+import "codemirror/mode/javascript/javascript";
 
 const {Option} = Select;
 
