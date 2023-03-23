@@ -1,0 +1,1 @@
+import{R as o,dA as e,m as n,V as r}from"./index-a4571b31.js";class t extends o.Component{UNSAFE_componentWillMount(){e()&&n(`${r}/.well-known/openid-configuration`)}render(){return null}}export{t as default};

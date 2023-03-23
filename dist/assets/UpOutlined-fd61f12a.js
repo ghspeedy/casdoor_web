@@ -1,0 +1,1 @@
+import{ah as t,ai as o,aj as e}from"./index-a4571b31.js";import{U as i}from"./UpOutlined-7082c42f.js";var a=function(r,n){return t.createElement(o,e(e({},r),{},{ref:n,icon:i}))};a.displayName="UpOutlined";const c=t.forwardRef(a);export{c as U};

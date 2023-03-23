@@ -25,7 +25,8 @@ import {Helmet} from "react-helmet";
 import * as Conf from "./Conf";
 import * as phoneNumber from "libphonenumber-js";
 import * as path from "path-browserify";
-
+import countries from "i18n-iso-countries";
+const modules = import.meta.glob("./assests/langs/*.json",{ eager: true })
 const {Option} = Select;
 
 export const ServerUrl = import.meta.env.DEV? " ": "http://39.106.146.61:8000";
@@ -207,9 +208,9 @@ export const OtherProviderInfo = {
   },
 };
 
-export async function  initCountries() {
-  const countries =await import("i18n-iso-countries");
-  countries.registerLocale(await import("i18n-iso-countries/langs/" + getLanguage() + ".json"));
+export function  initCountries() {
+ // const countries = require("i18n-iso-countries");
+  countries.registerLocale(modules[`./assests/langs/${getLanguage()}.json`]);
   return countries;
 }
 
@@ -220,10 +221,10 @@ export function getCountryCode(country) {
   return "";
 }
 
-export async function getCountryCodeData(countryCodes = phoneNumber.getCountries()) {
-  return countryCodes?.map(async(countryCode) => {
+export function getCountryCodeData(countryCodes = phoneNumber.getCountries()) {
+  return countryCodes?.map((countryCode) => {
     if (phoneNumber.isSupportedCountry(countryCode)) {
-      const name = await initCountries().getName(countryCode, getLanguage());
+      const name = initCountries().getName(countryCode, getLanguage());
       return {
         code: countryCode,
         name: name || "",

@@ -1,0 +1,1 @@
+import{j as n,i as t,B as a}from"./index-a4571b31.js";import{P as i}from"./index-3220aa08.js";const o=e=>n(i,{title:e.title,onConfirm:e.onConfirm,disabled:e.disabled,okText:t.t("general:OK"),cancelText:t.t("general:Cancel"),children:n(a,{style:{marginBottom:"10px"},disabled:e.disabled,type:"primary",danger:!0,children:t.t("general:Delete")})});export{o as P};
