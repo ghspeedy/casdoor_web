@@ -101,6 +101,12 @@ class App extends Component {
     this.getAccount();
   }
 
+  formatPath(path){
+    if(import.meta.env.BASE_URL==='/'){
+      return path;
+    }
+    return `${import.meta.env.BASE_URL}${path}`
+  }
   componentDidUpdate() {
     // eslint-disable-next-line no-restricted-globals
     const uri = location.pathname;
@@ -489,8 +495,8 @@ class App extends Component {
   }
 
   isStartPages() {
-    return window.location.pathname.startsWith(`${import.meta.env.BASE_URL}/login`) ||
-      window.location.pathname.startsWith(`${import.meta.env.BASE_URL}/login`) ||
+    return window.location.pathname.startsWith(this.formatPath('/login')) ||
+      window.location.pathname.startsWith(this.formatPath('/login')) ||
       window.location.pathname === `${import.meta.env.BASE_URL}/`;
   }
 
@@ -632,17 +638,17 @@ class App extends Component {
   }
 
   isDoorPages() {
-    return this.isEntryPages() || window.location.pathname.startsWith(`${import.meta.env.BASE_URL}/callback`);
+    return this.isEntryPages() || window.location.pathname.startsWith(this.formatPath('/callback'));
   }
 
   isEntryPages() {
-    console.log(`${import.meta.env.BASE_URL}/login`,window.location.pathname)
-    return window.location.pathname.startsWith(`${import.meta.env.BASE_URL}/signup`) ||
-      window.location.pathname.startsWith(`${import.meta.env.BASE_URL}/login`) ||
-      window.location.pathname.startsWith(`${import.meta.env.BASE_URL}/forget`) ||
-      window.location.pathname.startsWith(`${import.meta.env.BASE_URL}/prompt`) ||
-      window.location.pathname.startsWith(`${import.meta.env.BASE_URL}/cas`) ||
-      window.location.pathname.startsWith(`${import.meta.env.BASE_URL}/auto`);
+    console.log(this.formatPath('/login'),window.location.pathname)
+    return window.location.pathname.startsWith(this.formatPath('/signup')) ||
+      window.location.pathname.startsWith(this.formatPath('/login')) ||
+      window.location.pathname.startsWith(this.formatPath('/forget')) ||
+      window.location.pathname.startsWith(this.formatPath('/prompt')) ||
+      window.location.pathname.startsWith(this.formatPath('/cas')) ||
+      window.location.pathname.startsWith(this.formatPath('/auto'));
   }
 
   renderPage() {
