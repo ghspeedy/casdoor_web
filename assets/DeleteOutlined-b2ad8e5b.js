@@ -1,1 +1,0 @@
-import{ag as t,ah as l,ai as e}from"./index-ba7d0766.js";import{D as o}from"./DeleteOutlined-25685737.js";var a=function(r,n){return t.createElement(l,e(e({},r),{},{ref:n,icon:o}))};a.displayName="DeleteOutlined";const c=t.forwardRef(a);export{c as D};
